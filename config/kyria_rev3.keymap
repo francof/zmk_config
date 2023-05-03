@@ -8,7 +8,8 @@
 #include <dt-bindings/zmk/keys.h>
 
 #define DEF 0
-#define NAV 1
+#define SYM 1
+#define NAV 2
 
 /* Uncomment this block if using RGB
 &led_strip {
@@ -17,7 +18,9 @@
     // chain-length = <25>; // Uncomment if using only per-key LEDs.
 };
  */
-
+/*
+&trans &trans &trans &trans &trans
+*/
 / {
     keymap {
         compatible = "zmk,keymap";
@@ -26,23 +29,38 @@
             // ---------------------------------------------------------------------------------------------------------------------------------
             // |   `   |  '  |  ,  |  .   |  P   |  Y   |                                          |  F   |  G    |  C    |  R   |   L   | BSPC |
             // |  TAB  |  A  |  O  |  E   |  U   |  I   |                                          |  D   |  H    |  T    |  N   |   S   |   -  |
-            // | SHIFT |  ;  |  Q  |  J   |  K   |  X   | L SHIFT | L SHIFT |  | L SHIFT | L SHIFT |  B   |  M    |  W    |  V   |   Z   | CTRL |
-            //                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   RET   |  SPACE  | TAB  | BSPC  | R-ALT |
+            // | SHIFT |  ;  |  Q  |  J   |  K   |  X   |  TO:NAV | L SHIFT |  | L SHIFT | L SHIFT |  B   |  M    |  W    |  V   |   Z   | CTRL |
+            //                     | CTRL | DEL  | GUI  |  RET    |   ESC   |  |   RET   |  SPACE  | TAB  | BSPC  | R-ALT |
             bindings = <
             &kp GRAVE &kp APOS &kp COMMA &kp DOT &kp P &kp Y                                       &kp F &kp G  &kp C     &kp R   &kp L    &kp BSPC
             &kp TAB   &kp A &kp O &kp E &kp U &kp I                                                &kp D &kp H  &kp T     &kp N   &kp S    &kp MINUS
                 &kp LSHFT &kp SEMI &kp Q &kp J &kp K &kp X &to NAV &kp LSHFT        &kp LSHFT &to NAV &kp B &kp M  &kp W     &kp V   &kp Z    &kp RCTRL
-            			&kp LGUI &kp DEL &kp RET &kp SPACE &kp ESC        &kp RET  &kp SPACE  &kp TAB &kp BSPC &kp RALT
+            			&kp LCTRL &kp DEL &kp GUI &kp RET &kp ESC                   &kp RET  &kp SPACE  &kp TAB &kp BSPC &kp RALT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
+	sym_layer {
+            // -------------------------------------------------------------------------------------------------------------------------------------------------
+            // |       |  1  |  2  |  3   |  4   |  5   |                                          |    6    |    7    |    8    |    9    |    0    |    =    |
+            // |   ~   |  !  |  @  |  #   |  $   |  %   |                                          |    ^    |    &    |    *    |    (    |    )    |    +    |
+            // |    |  |  \  |  :  |  ;   |  -   |  [   |  {   |            |  |         |   }     |    ]    |    _    |    ,    |    .    |    /    |    ?    |
+            //                     |      |      |      |      |            |  |         |         |         |         |         |
+            bindings = <
+            &trans &kp N1   &kp N2 &kp N3 &kp N4 &kp N5                                             &kp N6    &kp N7   &kp N8     &kp N9    &kp N0     &kp EQUAL
+            &kp TILDE &kp EXCL &kp AT &kp HASH  &kp DLLR &kp PRCNT                                     &kp CARET &kp AMPS &kp STAR   &kp LPAR  &kp RPAR   &kp PLUS
+            &kp PIPE  &kp BSLH &kp COLON &kp SEMI &kp MINUS &kp LBKT &kp &trans    &trans    &kp RBRC  &kp RBKT  &kp UNDER &kp COMMA &kp DOT   &kp FSLH   &kp QMARK
+            			&kp LGUI &kp DEL &kp RET &kp SPACE &kp ESC        &kp RET  &kp SPACE  &kp TAB &kp BSPC &kp RALT
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+        }; 
         nav_layer {
             // ---------------------------------------------------------------------------------------------------------------------------------
             // |   `   |  '  |  ,  |  .   |  P   |  Y   |                                          |  F   |  G    |  C    |  R   |   L   | BSPC |
             // |  TAB  |  A  |  O  |  E   |  U   |  I   |                                          |  D   |  LEFT |  UP   | DOWN | RIGHT |   -  |
-            // | SHIFT |  ;  |  Q  |  J   |  K   |  X   | L SHIFT | L SHIFT |  | L SHIFT |  UP     |  B   |  M    |  W    |  V   |   Z   | CTRL |
+            // | SHIFT |  ;  |  Q  |  J   |  K k  |  X   | L SHIFT | L SHIFT |  | L SHIFT |  UP     |  B   |  M    |  W    |  V   |   Z   | CTRL |
             //                     | GUI  | DEL  | RET  |  SPACE  |   ESC   |  |   LEFT  |  DOWN   | RIGHT  | BSPC  | R-ALT |
             bindings = <
             &kp GRAVE &kp APOS &kp COMMA &kp DOT &kp P &kp Y                                       &kp F &kp G  &kp C     &kp R   &kp L    &kp BSPC
@@ -52,5 +70,7 @@
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
-        };    };
+        };    
+
+       };
 };
